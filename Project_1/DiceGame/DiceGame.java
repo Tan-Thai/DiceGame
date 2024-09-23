@@ -18,6 +18,7 @@ public class DiceGame {
             sc.nextLine();
             userGuess(sc, player);
         }
+
         System.out.println("--------------------------Game End--------------------------");
         System.out.println(MessageFormat.format(
             "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Good job, {3}!", 
@@ -46,13 +47,14 @@ public class DiceGame {
 
     private static void userGuess(Scanner sc, Player player) {
         int userGuess;
-
         player.rollDice();
+
         System.out.print("\nPlease guess what your die rolled between 1-" +  player.die.getNumberOfSides() + ": ");
         userGuess = checkIfNumber(sc);
+
         if (userGuess == player.getDieValue()){
-            System.out.println("You guessed right!");
             player.increaseScore();
+            System.out.println("You guessed right! Your current score is: *" + player.getScore() + "*");
         } else {
             System.out.println("You guessed wrong! The right number was: " + player.getDieValue());
         }
