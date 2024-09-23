@@ -20,7 +20,7 @@ public class Die {
 
     // Methods
     public void roll() {
-        currentValue = random.nextInt(1, numberOfSides);
+        this.currentValue = random.nextInt(1, numberOfSides);
     }
 
 }

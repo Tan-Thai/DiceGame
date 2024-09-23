@@ -19,7 +19,6 @@ public class Player {
     //methods
     public void rollDice() {
         this.die.roll();
-        System.out.println(this.die.getCurrentValue());
     }
 
     public int getDieValue() {
