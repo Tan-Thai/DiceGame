@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import Project_1.GlobalMethodLibrary;
 import java.text.MessageFormat;
 
 public class DiceGame {
@@ -11,25 +12,17 @@ public class DiceGame {
                 "Welcome to this simple Dice game!\nThe game is based around you guessing what the you have rolled with your personal die.");
         System.out.print("To start off. ");
 
+        // will loop here on new game(or just restart entirely)
         player = setupUser(sc);
-        rounds = setGameRounds(sc);
+        rounds = GlobalMethodLibrary.setGameRounds(sc);
 
         // will loop back here on "rematch"
         for (int i = 0; i <= rounds; i++) {
             sc.nextLine();
             userGuess(sc, player);
         }
-
         System.out.println("--------------------------Game End--------------------------");
-        if (player.score >= rounds / 2) {
-            System.out.println(MessageFormat.format(
-                    "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Good job, {3}!",
-                    rounds, player.die.getNumberOfSides(), player.score, player.name));
-        } else {
-            System.out.println(MessageFormat.format(
-                    "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Nice try, {3}!",
-                    rounds, player.die.getNumberOfSides(), player.score, player.name));
-        }
+        printResults(player, rounds);
         sc.close();
     }
 
@@ -41,16 +34,11 @@ public class DiceGame {
         player = new Player(userInput);
 
         System.out.print("How many sides will your die have?: ");
-        player.addDie(checkIfNumber(sc));
+        player.addDie(GlobalMethodLibrary.checkIfNumber(sc));
 
         sc.nextLine(); // clears scanner to avoid double error if user fails to input, idk why it
                        // happens - gotta research.
         return player;
-    }
-
-    private static int setGameRounds(Scanner sc) {
-        System.out.print("How many turns do you wish to play?: ");
-        return checkIfNumber(sc);
     }
 
     private static void userGuess(Scanner sc, Player player) {
@@ -58,7 +46,7 @@ public class DiceGame {
         player.rollDice();
 
         System.out.print("\nPlease guess what your die rolled between 1-" + player.die.getNumberOfSides() + ": ");
-        userGuess = checkIfNumber(sc);
+        userGuess = GlobalMethodLibrary.checkIfNumber(sc);
 
         if (userGuess == player.getDieValue()) {
             player.increaseScore();
@@ -68,11 +56,16 @@ public class DiceGame {
         }
     }
 
-    public static int checkIfNumber(Scanner sc) {
-        while (!sc.hasNextInt()) {
-            System.err.print("Invalid input, please write a number: ");
-            sc.nextLine();
+    private static void printResults(Player player, int rounds) {
+        // Separated the printing of results to make it cleaner + ease of extension for the results calc
+        if (player.score >= rounds / 2) {
+            System.out.println(MessageFormat.format(
+                    "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Good job, {3}!",
+                    rounds, player.die.getNumberOfSides(), player.score, player.name));
+        } else {
+            System.out.println(MessageFormat.format(
+                    "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Nice try, {3}!",
+                    rounds, player.die.getNumberOfSides(), player.score, player.name));
         }
-        return sc.nextInt();
     }
 }

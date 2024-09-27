@@ -32,4 +32,5 @@ public class Player {
     public void addDie(int numberOfSides) {
         this.die = new Die(numberOfSides);
     }
+    
 }
