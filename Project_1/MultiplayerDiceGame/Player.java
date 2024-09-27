@@ -42,4 +42,5 @@ public class Player {
         Die die = new Die(6);
         dice.add(die);
     }
+    
 }

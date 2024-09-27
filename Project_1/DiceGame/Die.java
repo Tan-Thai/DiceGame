@@ -1,5 +1,6 @@
-import java.util.Random;
+package Project_1.DiceGame;
 
+import java.util.Random;
 public class Die {
     private int numberOfSides;
     private int currentValue;

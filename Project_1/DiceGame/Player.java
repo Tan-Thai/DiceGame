@@ -1,3 +1,5 @@
+package Project_1.DiceGame;
+
 public class Player {
     String name;
     int score = 0; 

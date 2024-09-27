@@ -1,6 +1,8 @@
+package Project_1.DiceGame;
+
 import java.util.Scanner;
-import Project_1.GlobalMethodLibrary;
 import java.text.MessageFormat;
+import Project_1.GlobalMethodLibrary;
 
 public class DiceGame {
     public static void main(String[] args) {

@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class MultiDiceGame {
     public static void main(String[] args) {
         int rounds;
-        ArrayList<Player> playerList;
+        ArrayList<Player> playerList = new ArrayList<Player>();
+        ArrayList<Player> winnerList;
 
         Scanner sc = new Scanner(System.in);
         System.out.println(
@@ -17,22 +18,23 @@ public class MultiDiceGame {
         rounds = GlobalMethodLibrary.setGameRounds(sc);
 
         sc.nextLine(); //Legit hate these, removing this somehow skips the next nextline
-        System.out.println("Press enter to start the first round");
+        System.out.print("Press enter to start the first round");
         sc.nextLine();
 
         for (int i = 1; i <= rounds; i++) {
+            System.out.println("-------------------------------------");
             takeTurn(playerList);
-            Player test = playerList.get(0);
-            System.out.println(test.getScore());
             if (i < rounds) {
-                System.out.println("Round " + i + " done, press enter to continue to next round.");
+                System.out.print("Round " + i + " done, press enter to continue to next round.");
             } else {
-                System.out.println("Round " + i + " done, press enter to get the results.");
+                System.out.print("Round " + i + " done, press enter to get the results.");
             }
             sc.nextLine();
         }
+        winnerList = getWinners(playerList);
+        printWinners(winnerList);
 
-        System.out.println("--------------------------Game End--------------------------");
+        System.out.println("-------------------------- Game End --------------------------");
         sc.close();
     }
 
@@ -40,7 +42,7 @@ public class MultiDiceGame {
         ArrayList<Player> players = new ArrayList<Player>();
         int playerCount;
 
-        System.out.print("How many players are you?:");
+        System.out.print("How many players are you?: ");
         playerCount = GlobalMethodLibrary.checkIfNumber(sc);
 
         sc.nextLine();
@@ -78,4 +80,30 @@ public class MultiDiceGame {
         }
     }
 
+    private static ArrayList<Player> getWinners(ArrayList<Player> players) {
+        ArrayList<Player> winnerList = new ArrayList<Player>();
+        int highestScore = 0;
+        
+        for (Player player : players) {
+            if (player.getScore() > highestScore) {
+                highestScore = player.getScore();
+            }
+        }
+
+        for (Player player : players) {
+            if (player.getScore() == highestScore) {
+                winnerList.add(player);
+            }
+        }
+        return winnerList;
+    }
+
+    private static void printWinners(ArrayList<Player> winnerList) {
+        System.out.println("-------------------------- Results --------------------------");
+        System.out.println("The winner(s) with " + winnerList.get(0).score + " points are: ");
+        for (Player player : winnerList) {
+            System.out.println(player.name + "!");
+        }
+        System.out.println("Congratulations!");
+    } 
 }
