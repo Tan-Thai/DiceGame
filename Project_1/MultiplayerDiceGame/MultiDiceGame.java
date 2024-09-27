@@ -1,8 +1,7 @@
 package Project_1.MultiplayerDiceGame;
 
-import java.util.Scanner;
 import Project_1.GlobalMethodLibrary;
-import java.text.MessageFormat;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class MultiDiceGame {
@@ -17,20 +16,23 @@ public class MultiDiceGame {
         playerList = initialize(sc);
         rounds = GlobalMethodLibrary.setGameRounds(sc);
 
-        sc.nextLine(); //Legit hate these, removing this somehow skips the next nextline
+        sc.nextLine(); //Legit hate these, removing this somehow skips the next next line
         System.out.print("Press enter to start the first round");
         sc.nextLine();
 
         for (int i = 1; i <= rounds; i++) {
             System.out.println("-------------------------------------");
+
             takeTurn(playerList);
             if (i < rounds) {
                 System.out.print("Round " + i + " done, press enter to continue to next round.");
             } else {
                 System.out.print("Round " + i + " done, press enter to get the results.");
             }
+
             sc.nextLine();
         }
+
         winnerList = getWinners(playerList);
         printWinners(winnerList);
 
@@ -95,6 +97,7 @@ public class MultiDiceGame {
                 winnerList.add(player);
             }
         }
+
         return winnerList;
     }
 
