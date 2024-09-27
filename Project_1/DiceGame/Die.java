@@ -4,6 +4,7 @@ public class Die {
     private int numberOfSides;
     private int currentValue;
     private Random random;
+    
     // getters, setters
     public int getNumberOfSides() {
         return numberOfSides;

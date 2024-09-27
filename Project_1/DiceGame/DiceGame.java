@@ -7,11 +7,12 @@ public class DiceGame {
         Player player;
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to this simple Dice game!\nThe game is based around you guessing what the you have rolled with your personal die.");
+        System.out.println(
+                "Welcome to this simple Dice game!\nThe game is based around you guessing what the you have rolled with your personal die.");
         System.out.print("To start off. ");
 
         player = setupUser(sc);
-        rounds = gameRounds(sc);
+        rounds = setGameRounds(sc);
 
         // will loop back here on "rematch"
         for (int i = 0; i <= rounds; i++) {
@@ -20,27 +21,34 @@ public class DiceGame {
         }
 
         System.out.println("--------------------------Game End--------------------------");
-        System.out.println(MessageFormat.format(
-            "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Good job, {3}!", 
-            rounds, player.die.getNumberOfSides(), player.score, player.name));
-        
+        if (player.score >= rounds / 2) {
+            System.out.println(MessageFormat.format(
+                    "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Good job, {3}!",
+                    rounds, player.die.getNumberOfSides(), player.score, player.name));
+        } else {
+            System.out.println(MessageFormat.format(
+                    "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Nice try, {3}!",
+                    rounds, player.die.getNumberOfSides(), player.score, player.name));
+        }
+        sc.close();
     }
 
     private static Player setupUser(Scanner sc) {
-        String tempString;
-        Player player;   
+        String userInput;
+        Player player;
         System.out.print("What is your name?: ");
-        tempString = sc.nextLine();
-        player = new Player(tempString);
-        
+        userInput = sc.nextLine();
+        player = new Player(userInput);
+
         System.out.print("How many sides will your die have?: ");
         player.addDie(checkIfNumber(sc));
-        
-        sc.nextLine(); //clears scanner to avoid double error if user fails to input, idk why it happens - gotta research.
+
+        sc.nextLine(); // clears scanner to avoid double error if user fails to input, idk why it
+                       // happens - gotta research.
         return player;
     }
-    
-    private static int gameRounds(Scanner sc) {
+
+    private static int setGameRounds(Scanner sc) {
         System.out.print("How many turns do you wish to play?: ");
         return checkIfNumber(sc);
     }
@@ -49,10 +57,10 @@ public class DiceGame {
         int userGuess;
         player.rollDice();
 
-        System.out.print("\nPlease guess what your die rolled between 1-" +  player.die.getNumberOfSides() + ": ");
+        System.out.print("\nPlease guess what your die rolled between 1-" + player.die.getNumberOfSides() + ": ");
         userGuess = checkIfNumber(sc);
 
-        if (userGuess == player.getDieValue()){
+        if (userGuess == player.getDieValue()) {
             player.increaseScore();
             System.out.println("You guessed right! Your current score is: *" + player.getScore() + "*");
         } else {
