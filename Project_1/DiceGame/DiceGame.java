@@ -8,23 +8,30 @@ public class DiceGame {
     public static void main(String[] args) {
         int rounds;
         Player player;
-
         Scanner sc = new Scanner(System.in);
+        char gameLoop = 'Y';
         System.out.println(
-                "Welcome to this simple Dice game!\nThe game is based around you guessing what the you have rolled with your personal die.");
+                "Welcome to this simple Dice game!\nThe game is based around you guessing what number your personal die has landed on.");
         System.out.print("To start off. ");
 
-        // will loop here on new game(or just restart entirely)
-        player = setupUser(sc);
-        rounds = GlobalMethodLibrary.setGameRounds(sc);
-
-        // will loop back here on "rematch"
-        for (int i = 0; i <= rounds; i++) {
+        while (gameLoop == 'Y') {
+            // will loop here on new game(or just restart entirely)
+            player = setupUser(sc);
+            rounds = GlobalMethodLibrary.setGameRounds(sc);
+    
+            // will loop back here on "rematch"
+            for (int i = 1; i <= rounds; i++) {
+                sc.nextLine();
+                userGuess(sc, player);
+            }
+            System.out.println("--------------------------Game End--------------------------");
+            printResults(player, rounds);
+            System.out.print("Do you want to play again? Y/N: ");
             sc.nextLine();
-            userGuess(sc, player);
+            gameLoop = GlobalMethodLibrary.checkIfChar(sc);
         }
-        System.out.println("--------------------------Game End--------------------------");
-        printResults(player, rounds);
+
+
         sc.close();
     }
 

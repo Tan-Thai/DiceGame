@@ -15,4 +15,19 @@ public class GlobalMethodLibrary {
         }
         return sc.nextInt();
     }
+
+    public static char checkIfChar(Scanner sc) {
+        do {
+            String inputString = sc.nextLine().trim();
+            if (inputString.length() == 1) {
+                char choice = inputString.charAt(0);
+                choice = Character.toUpperCase(choice);
+
+                if ((choice == 'Y' || choice == 'N')) {
+                    return choice;
+                }
+            }
+            System.out.println("Invalid input, please enter either Y or N.");
+        } while (true); // tvingar en loop tills användaren har skrivit rätt.
+    }
 }
