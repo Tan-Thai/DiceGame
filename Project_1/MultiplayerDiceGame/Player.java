@@ -6,20 +6,16 @@ public class Player {
     int score = 0; 
     ArrayList<Die> dice = new ArrayList<Die>();
     
-    //getters, setters
     public String getName() {return name;}
-
     public int getScore() {return score;}
     public void setScore(int score) {
         this.score = score;
     }
 
-    //constructors 
     public Player(String name) {
         this.name = name;
     }
 
-    //methods
     public void rollDice() {
         for (Die die : dice) {
             die.roll();

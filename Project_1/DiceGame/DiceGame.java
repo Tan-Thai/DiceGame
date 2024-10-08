@@ -36,11 +36,9 @@ public class DiceGame {
     }
 
     private static Player setupUser(Scanner sc) {
-        String userInput;
-        Player player;
         System.out.print("What is your name?: ");
-        userInput = sc.nextLine();
-        player = new Player(userInput);
+        String userInput = sc.nextLine();
+        Player player = new Player(userInput);
 
         System.out.print("How many sides will your die have?: ");
         player.addDie(GlobalMethodLibrary.checkIfNumber(sc));
@@ -51,11 +49,10 @@ public class DiceGame {
     }
 
     private static void userGuess(Scanner sc, Player player) {
-        int userGuess;
         player.rollDice();
 
         System.out.print("\nPlease guess what your die rolled between 1-" + player.die.getNumberOfSides() + ": ");
-        userGuess = GlobalMethodLibrary.checkIfNumber(sc);
+        int userGuess = GlobalMethodLibrary.checkIfNumber(sc);
 
         if (userGuess == player.getDieValue()) {
             player.increaseScore();
@@ -67,7 +64,8 @@ public class DiceGame {
 
     private static void printResults(Player player, int rounds) {
         // Separated the printing of results to make it cleaner + ease of extension for the results calc
-        if (player.score >= rounds / 2) {
+        // Slightly awkward with rounding as well due to the nature of how it rounds towards 0.
+        if (player.score > rounds / 2) {
             System.out.println(MessageFormat.format(
                     "\nYour total score in {0} round(s) against a {1} sided die is: *{2}*. Good job, {3}!",
                     rounds, player.die.getNumberOfSides(), player.score, player.name));
