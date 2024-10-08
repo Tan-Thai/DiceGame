@@ -9,11 +9,43 @@ public class GlobalMethodLibrary {
     }
 
     public static int checkIfNumber(Scanner sc) {
-        while (!sc.hasNextInt()) {
-            System.err.print("Invalid input, please write a number: ");
-            sc.nextLine();
-        }
-        return sc.nextInt();
+        int userInput;
+        do {
+            while (!sc.hasNextInt()) {
+                System.err.print("Invalid input, please write a number: ");
+                sc.nextLine();
+            }
+
+            userInput = sc.nextInt();
+
+            if (userInput < 1) {
+                System.err.print("Invalid input, please enter a number above 0: ");
+                sc.nextLine();
+            }
+
+        } while (userInput < 1);
+        clearScanner(sc);
+        return userInput;
+    }
+
+    public static int checkIfNumber(Scanner sc, int maxNumber) {
+        int userInput;
+        do{
+            while (!sc.hasNextInt()) {
+                System.err.print("Invalid input, please write a number: ");
+                sc.nextLine();
+            }
+            
+            userInput = sc.nextInt();
+
+            if (userInput < 1 || maxNumber < userInput) {
+                System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
+                sc.nextLine();
+            }
+
+        } while (userInput < 1 || maxNumber < userInput);
+        clearScanner(sc);
+        return userInput;
     }
 
     public static char checkYesOrNo(Scanner sc) {
@@ -27,7 +59,13 @@ public class GlobalMethodLibrary {
                     return choice;
                 }
             }
-            System.out.print("Invalid input, please enter either Y or N: ");
+            System.err.print("Invalid input, please enter either Y or N: ");
         } while (true); // tvingar en loop tills användaren har skrivit rätt.
+    }
+
+    public static void clearScanner(Scanner sc) {
+        if(sc.hasNextLine()){
+            sc.nextLine();
+        }
     }
 }

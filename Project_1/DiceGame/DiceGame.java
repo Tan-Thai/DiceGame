@@ -16,7 +16,7 @@ public class DiceGame {
         while (gameLoop == 'Y'){
             coreGameProcess(sc);
             System.out.print("Do you want to play again? Y/N: ");
-            sc.nextLine();
+            GlobalMethodLibrary.clearScanner(sc);
             gameLoop = GlobalMethodLibrary.checkYesOrNo(sc);
         }
         
@@ -30,7 +30,6 @@ public class DiceGame {
     
         // will loop back here on "rematch" if i decide to implement that.
         for (int i = 1; i <= rounds; i++) {
-            sc.nextLine();
             userGuess(sc, player);
         }
     
@@ -46,9 +45,6 @@ public class DiceGame {
 
         System.out.print("How many sides will your die have?: ");
         player.addDie(GlobalMethodLibrary.checkIfNumber(sc));
-
-        sc.nextLine(); // clears scanner to avoid double error if user fails to input, idk why it
-                       // happens - gotta research.
         return player;
     }
 
@@ -56,7 +52,7 @@ public class DiceGame {
         player.rollDice();
 
         System.out.print("\nPlease guess what your die rolled between 1-" + player.die.getNumberOfSides() + ": ");
-        int userGuess = GlobalMethodLibrary.checkIfNumber(sc);
+        int userGuess = GlobalMethodLibrary.checkIfNumber(sc, player.die.getNumberOfSides());
 
         if (userGuess == player.getDieValue()) {
             player.increaseScore();
