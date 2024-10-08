@@ -15,15 +15,15 @@ public class DiceGame {
         System.out.print("To start off. ");
 
         while (gameLoop == 'Y') {
-            // will loop here on new game(or just restart entirely)
             player = setupUser(sc);
             rounds = GlobalMethodLibrary.setGameRounds(sc);
     
-            // will loop back here on "rematch"
+            // will loop back here on "rematch" if i decide to implement that.
             for (int i = 1; i <= rounds; i++) {
                 sc.nextLine();
                 userGuess(sc, player);
             }
+
             System.out.println("--------------------------Game End--------------------------");
             printResults(player, rounds);
             System.out.print("Do you want to play again? Y/N: ");
@@ -31,7 +31,7 @@ public class DiceGame {
             gameLoop = GlobalMethodLibrary.checkIfChar(sc);
         }
 
-
+        System.out.println("--------------------------Thanks for playing!--------------------------");
         sc.close();
     }
 
