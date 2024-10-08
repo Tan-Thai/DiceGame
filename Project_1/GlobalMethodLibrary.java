@@ -16,7 +16,7 @@ public class GlobalMethodLibrary {
         return sc.nextInt();
     }
 
-    public static char checkIfChar(Scanner sc) {
+    public static char checkYesOrNo(Scanner sc) {
         do {
             String inputString = sc.nextLine().trim();
             if (inputString.length() == 1) {
@@ -27,7 +27,7 @@ public class GlobalMethodLibrary {
                     return choice;
                 }
             }
-            System.out.println("Invalid input, please enter either Y or N.");
+            System.out.print("Invalid input, please enter either Y or N: ");
         } while (true); // tvingar en loop tills användaren har skrivit rätt.
     }
 }
