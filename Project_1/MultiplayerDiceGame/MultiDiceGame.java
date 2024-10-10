@@ -16,9 +16,9 @@ public class MultiDiceGame {
         playerList = initialize(sc);
         rounds = GlobalMethodLibrary.setGameRounds(sc);
 
-        sc.nextLine(); //Legit hate these, removing this somehow skips the next next line
-        System.out.print("Press enter to start the first round");
-        sc.nextLine();
+
+        System.out.print("\nPress enter to start the first round");
+        GlobalMethodLibrary.clearScanner(sc);
 
         for (int i = 1; i <= rounds; i++) {
             System.out.println("-------------------------------------");
@@ -30,7 +30,7 @@ public class MultiDiceGame {
                 System.out.print("Round " + i + " done, press enter to get the results.");
             }
 
-            sc.nextLine();
+            GlobalMethodLibrary.clearScanner(sc);
         }
 
         winnerList = getWinners(playerList);
@@ -47,7 +47,6 @@ public class MultiDiceGame {
         System.out.print("How many players are you?: ");
         playerCount = GlobalMethodLibrary.checkIfNumber(sc);
 
-        sc.nextLine();
         for (int i = 1; i <= playerCount; i++ ){
            players.add(setupUser(sc, i));
         }
@@ -55,7 +54,7 @@ public class MultiDiceGame {
     }
 
     private static Player setupUser(Scanner sc, int playerCount) {
-        System.out.print("Player "+ playerCount +", what is your name?: ");
+        System.out.print("\nPlayer "+ playerCount +", what is your name?: ");
         String userInput = sc.nextLine();
         Player player = new Player(userInput);
 
@@ -66,8 +65,6 @@ public class MultiDiceGame {
         for (int i = 1; i <= diceCount; i++ ) {
             player.addDie();
         }
-
-        sc.nextLine(); // clears scanner to avoid double error if user fails to input, idk why it happens - gotta research.
         return player;
     }
 

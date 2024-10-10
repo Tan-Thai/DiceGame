@@ -29,6 +29,7 @@ public class DiceGame {
         int rounds = GlobalMethodLibrary.setGameRounds(sc);
     
         // will loop back here on "rematch" if i decide to implement that.
+        // Can do while-loop here too
         for (int i = 1; i <= rounds; i++) {
             userGuess(sc, player);
         }
@@ -45,6 +46,7 @@ public class DiceGame {
 
         System.out.print("How many sides will your die have?: ");
         player.addDie(GlobalMethodLibrary.checkIfNumber(sc));
+        
         return player;
     }
 
@@ -52,7 +54,7 @@ public class DiceGame {
         player.rollDice();
 
         System.out.print("\nPlease guess what your die rolled between 1-" + player.die.getNumberOfSides() + ": ");
-        int userGuess = GlobalMethodLibrary.checkIfNumber(sc, player.die.getNumberOfSides());
+        int userGuess = checkDiceGuess(sc, player.die.getNumberOfSides());
 
         if (userGuess == player.getDieValue()) {
             player.increaseScore();
@@ -60,6 +62,27 @@ public class DiceGame {
         } else {
             System.out.println("You guessed wrong! The right number was: " + player.getDieValue());
         }
+    }
+
+    private static int checkDiceGuess (Scanner sc, int maxNumber) {
+        int userInput;
+        
+        do{
+            while (!sc.hasNextInt()) {
+                System.err.print("Invalid input, please write a number: ");
+                sc.nextLine();
+            }
+            
+            userInput = sc.nextInt();
+
+            if (userInput < 1 || maxNumber < userInput) {
+                System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
+                sc.nextLine();
+            }
+
+        } while (userInput < 1 || maxNumber < userInput);
+        GlobalMethodLibrary.clearScanner(sc);
+        return userInput;
     }
 
     private static void printResults(Player player, int rounds) {

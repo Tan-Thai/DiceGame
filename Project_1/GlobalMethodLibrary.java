@@ -8,8 +8,9 @@ public class GlobalMethodLibrary {
         return checkIfNumber(sc);
     }
 
-    public static int checkIfNumber(Scanner sc) {
+    public static int checkIfNumber(Scanner sc) { // im losing the plot, heck these clear lines.
         int userInput;
+
         do {
             while (!sc.hasNextInt()) {
                 System.err.print("Invalid input, please write a number: ");
@@ -24,26 +25,6 @@ public class GlobalMethodLibrary {
             }
 
         } while (userInput < 1);
-        clearScanner(sc);
-        return userInput;
-    }
-
-    public static int checkIfNumber(Scanner sc, int maxNumber) {
-        int userInput;
-        do{
-            while (!sc.hasNextInt()) {
-                System.err.print("Invalid input, please write a number: ");
-                sc.nextLine();
-            }
-            
-            userInput = sc.nextInt();
-
-            if (userInput < 1 || maxNumber < userInput) {
-                System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
-                sc.nextLine();
-            }
-
-        } while (userInput < 1 || maxNumber < userInput);
         clearScanner(sc);
         return userInput;
     }

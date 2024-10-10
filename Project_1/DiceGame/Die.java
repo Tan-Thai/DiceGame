@@ -26,5 +26,4 @@ public class Die {
         // not sure if its the same with java but i recall C# being that way IIRC.
         this.currentValue = random.nextInt(1, numberOfSides + 1);
     }
-
 }
