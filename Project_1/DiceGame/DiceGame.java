@@ -15,15 +15,14 @@ public class DiceGame {
         Player player = setupUser(sc);
 
         do {
+
             coreGameProcess(sc, player);
 
             System.out.print("Do you want to play again? Y/N: ");
             replay = GlobalMethodLibrary.checkYesOrNo(sc);
-
             if (replay) {
                 System.out.println("----------------------------------------------------");
             }
-
         } while (replay);
 
         System.out.println("--------------------------Thanks for playing!--------------------------");
@@ -65,7 +64,7 @@ public class DiceGame {
                 break;
             } else {
                 System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
-                sc.nextLine();
+                GlobalMethodLibrary.clearScanner(sc);
             }
         } while (true);
 

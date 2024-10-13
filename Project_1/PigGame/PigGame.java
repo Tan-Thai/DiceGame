@@ -25,8 +25,9 @@ public class PigGame {
         do {
             gameLoop(sc, playerList);
         } while (!winConditionReached(playerList)); // forever loop until winner reached
-        
-        System.out.println("-------------------------- Someone reached " + winCondition() + " points! --------------------------");
+
+        System.out.println(
+                "-------------------------- Someone reached " + winCondition() + " points! --------------------------");
         printResult(playerList);
 
         System.out.println("-------------------------- Game End --------------------------");
@@ -86,8 +87,8 @@ public class PigGame {
                                              // player to winning and jump out to win, but ill hold off doing it.
 
                 System.out.println(
-                        "\nYou rolled a " + dieValue + " for a total of " + unsecuredPoints + " points and "
-                                + player.score + " saved points.");
+                        "\nYou rolled a " + dieValue + " for a total of " + unsecuredPoints + " points and " +
+                        player.score + " saved points.");
                 System.out.print("Do you wish to take the risk and roll again?(Y/N): ");
                 playerGoesAgain = GlobalMethodLibrary.checkYesOrNo(sc);
 

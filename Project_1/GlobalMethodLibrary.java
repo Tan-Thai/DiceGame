@@ -19,18 +19,16 @@ public class GlobalMethodLibrary {
         } while (true); //forced loop
     }
 
-    public static int checkIfNumber(Scanner sc) { // im losing the plot, heck these clear lines.
+    public static int checkIfNumber(Scanner sc) {
         int userInput = -1; //-1 to always give error when there's no input
 
-        while (true) {
+        while (true) { //forced loop in while
             if (sc.hasNextInt()) {
                 userInput = sc.nextInt();
-
                 if (userInput > 0) {
                     clearScanner(sc); 
                     return userInput;
                 }
-
             } else {
                 sc.next(); 
             }
@@ -53,7 +51,7 @@ public class GlobalMethodLibrary {
                 }
             }
             System.err.print("Invalid input, please enter either Y or N: ");
-        } while (true); // tvingar en loop tills användaren har skrivit rätt.
+        } while (true); //forced loop in do while
     }
 
     public static void clearScanner(Scanner sc) {
