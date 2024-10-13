@@ -20,24 +20,22 @@ public class GlobalMethodLibrary {
     }
 
     public static int checkIfNumber(Scanner sc) { // im losing the plot, heck these clear lines.
-        int userInput;
+        int userInput = -1; //-1 to always give error when there's no input
 
-        do {
-            while (!sc.hasNextInt()) {
-                System.err.print("Invalid input, please write a number: ");
-                sc.nextLine();
+        while (true) {
+            if (sc.hasNextInt()) {
+                userInput = sc.nextInt();
+
+                if (userInput > 0) {
+                    clearScanner(sc); 
+                    return userInput;
+                }
+
+            } else {
+                sc.next(); 
             }
-
-            userInput = sc.nextInt();
-
-            if (userInput < 1) {
-                System.err.print("Invalid input, please enter a number above 0: ");
-                sc.nextLine();
-            }
-
-        } while (userInput < 1);
-        clearScanner(sc);
-        return userInput;
+            System.err.print("Invalid input, please enter a number above 0: ");
+        }
     }
 
     public static boolean checkYesOrNo(Scanner sc) {

@@ -16,15 +16,29 @@ public class DiceGame {
 
         do {
             coreGameProcess(sc, player);
+
             System.out.print("Do you want to play again? Y/N: ");
             replay = GlobalMethodLibrary.checkYesOrNo(sc);
+
             if (replay) {
                 System.out.println("----------------------------------------------------");
             }
+
         } while (replay);
 
         System.out.println("--------------------------Thanks for playing!--------------------------");
         sc.close();
+    }
+    
+    private static Player setupUser(Scanner sc) {
+        System.out.print("What is your name?: ");
+        String userInput = GlobalMethodLibrary.checkIfValidString(sc);
+        Player player = new Player(userInput);
+
+        System.out.print("How many sides will your die have?: ");
+        player.addDie(GlobalMethodLibrary.checkIfNumber(sc));
+
+        return player;
     }
 
     private static void coreGameProcess(Scanner sc, Player player) {
@@ -37,22 +51,23 @@ public class DiceGame {
         printResults(player, rounds);
     }
 
-    private static Player setupUser(Scanner sc) {
-        System.out.print("What is your name?: ");
-        String userInput = GlobalMethodLibrary.checkIfValidString(sc);
-        Player player = new Player(userInput);
-
-        System.out.print("How many sides will your die have?: ");
-        player.addDie(GlobalMethodLibrary.checkIfNumber(sc));
-
-        return player;
-    }
-
     private static void userGuess(Scanner sc, Player player) {
         player.rollDice();
+        int userGuess = -1;
+        int maxNumber = player.die.getNumberOfSides();
+        
+        System.out.print("\nPlease guess what your die rolled between 1-" + maxNumber + ": ");
 
-        System.out.print("\nPlease guess what your die rolled between 1-" + player.die.getNumberOfSides() + ": ");
-        int userGuess = checkDiceGuess(sc, player.die.getNumberOfSides());
+        do {
+            userGuess = GlobalMethodLibrary.checkIfNumber(sc);
+
+            if (userGuess >= 1 && userGuess <= maxNumber) {
+                break;
+            } else {
+                System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
+                sc.nextLine();
+            }
+        } while (true);
 
         if (userGuess == player.getDieValue()) {
             player.increaseScore();
@@ -60,23 +75,6 @@ public class DiceGame {
         } else {
             System.out.println("You guessed wrong! The right number was: " + player.getDieValue());
         }
-    }
-
-    private static int checkDiceGuess(Scanner sc, int maxNumber) { 
-        // unnecessary method for the assignment but i really
-        // hate not having some sort of logical fail-safe.
-        int userInput;
-
-        do {
-            userInput = GlobalMethodLibrary.checkIfNumber(sc);
-
-            if (userInput < 1 || maxNumber < userInput) {
-                System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
-                sc.nextLine();
-            }
-
-        } while (userInput < 1 || maxNumber < userInput);
-        return userInput;
     }
 
     private static void printResults(Player player, int rounds) {

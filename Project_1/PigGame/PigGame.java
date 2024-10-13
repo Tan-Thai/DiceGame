@@ -10,7 +10,7 @@ public class PigGame {
         Scanner sc = new Scanner(System.in);
 
         System.out.println(
-                "Welcome to this Pig Game, where 2 or more people contest against each other to reach 100 stocked points first!\n"
+                "\nWelcome to this Pig Game, where 2 or more people contest against each other to reach 100 stocked points first!\n"
                         +
                         "Each player will have their turn to roll their die, accumulating points before stocking it when their turn ends.\n"
                         +
@@ -78,6 +78,7 @@ public class PigGame {
 
                 if (dieValue == 1) {
                     System.out.println("You rolled a 1! You lose all your unsecured points and your turn is over!");
+                    unsecuredPoints = 0;
                     break;
                 }
 

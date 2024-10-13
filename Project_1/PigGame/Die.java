@@ -4,7 +4,7 @@ import java.util.Random;
 public class Die {
     private int numberOfSides;
     private int currentValue;
-    private Random random;
+    private Random random  = new Random();
     
 
     public int getNumberOfSides() {
@@ -19,7 +19,6 @@ public class Die {
     }
 
     public void roll() {
-        random = new Random(); 
         this.currentValue = random.nextInt(1, numberOfSides + 1);
     }
 
