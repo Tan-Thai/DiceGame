@@ -20,10 +20,10 @@ public class MultiDiceGame {
         System.out.print("\nPress enter to start the first round");
         GlobalMethodLibrary.clearScanner(sc);
 
-        for (int i = 1; i <= rounds; i++) {
+        for (int i = 1; i <= rounds; i++) { //can break out into its own method here.
             System.out.println("-------------------------------------");
-
             takeTurn(playerList);
+
             if (i < rounds) {
                 System.out.print("Round " + i + " done, press enter to continue to next round.");
             } else {
@@ -55,7 +55,7 @@ public class MultiDiceGame {
 
     private static Player setupUser(Scanner sc, int playerCount) {
         System.out.print("\nPlayer "+ playerCount +", what is your name?: ");
-        String userInput = sc.nextLine();
+        String userInput = GlobalMethodLibrary.checkIfValidString(sc);
         Player player = new Player(userInput);
 
         System.out.print("How many dice will you have?: ");

@@ -7,46 +7,44 @@ import Project_1.GlobalMethodLibrary;
 public class DiceGame {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        char gameLoop = 'Y';
+        boolean replay = false;
 
         System.out.println(
                 "Welcome to this simple Dice game!\nThe game is based around you guessing what number your personal die has landed on.");
         System.out.print("To start off. ");
+        Player player = setupUser(sc);
 
-        while (gameLoop == 'Y'){
-            coreGameProcess(sc);
+        do {
+            coreGameProcess(sc, player);
             System.out.print("Do you want to play again? Y/N: ");
-            GlobalMethodLibrary.clearScanner(sc);
-            gameLoop = GlobalMethodLibrary.checkYesOrNo(sc);
-        }
-        
+            replay = GlobalMethodLibrary.checkYesOrNo(sc);
+            if (replay) {
+                System.out.println("----------------------------------------------------");
+            }
+        } while (replay);
+
         System.out.println("--------------------------Thanks for playing!--------------------------");
         sc.close();
     }
-    
-    private static void coreGameProcess(Scanner sc){
-        Player player = setupUser(sc);
+
+    private static void coreGameProcess(Scanner sc, Player player) {
         int rounds = GlobalMethodLibrary.setGameRounds(sc);
-    
-        // will loop back here on "rematch" if i decide to implement that.
-        // Can do while-loop here too
         for (int i = 1; i <= rounds; i++) {
             userGuess(sc, player);
         }
-    
+
         System.out.println("--------------------------Game End--------------------------");
         printResults(player, rounds);
-
     }
 
     private static Player setupUser(Scanner sc) {
         System.out.print("What is your name?: ");
-        String userInput = sc.nextLine();
+        String userInput = GlobalMethodLibrary.checkIfValidString(sc);
         Player player = new Player(userInput);
 
         System.out.print("How many sides will your die have?: ");
         player.addDie(GlobalMethodLibrary.checkIfNumber(sc));
-        
+
         return player;
     }
 
@@ -64,16 +62,13 @@ public class DiceGame {
         }
     }
 
-    private static int checkDiceGuess (Scanner sc, int maxNumber) {
+    private static int checkDiceGuess(Scanner sc, int maxNumber) { 
+        // unnecessary method for the assignment but i really
+        // hate not having some sort of logical fail-safe.
         int userInput;
-        
-        do{
-            while (!sc.hasNextInt()) {
-                System.err.print("Invalid input, please write a number: ");
-                sc.nextLine();
-            }
-            
-            userInput = sc.nextInt();
+
+        do {
+            userInput = GlobalMethodLibrary.checkIfNumber(sc);
 
             if (userInput < 1 || maxNumber < userInput) {
                 System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
@@ -81,13 +76,14 @@ public class DiceGame {
             }
 
         } while (userInput < 1 || maxNumber < userInput);
-        GlobalMethodLibrary.clearScanner(sc);
         return userInput;
     }
 
     private static void printResults(Player player, int rounds) {
-        // Separated the printing of results to make it cleaner + ease of extension for the results calc
-        // Slightly awkward with rounding as well due to the nature of how it rounds towards 0.
+        // Separated the printing of results to make it cleaner + ease of extension for
+        // the results calc
+        // Slightly awkward with rounding as well due to the nature of how it rounds
+        // towards 0.
         if (player.score > rounds / 2) {
             System.out.println(MessageFormat.format(
                     "\nYour total score in {0} round(s) with a {1} sided die is: *{2}*. Good job, {3}!",

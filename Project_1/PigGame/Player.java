@@ -13,7 +13,7 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        addDie(6);
+        addDie(6); //keep the addDie due to modularity.
     }
 
     public void rollDice() {
