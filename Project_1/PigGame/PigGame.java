@@ -18,7 +18,7 @@ public class PigGame {
                         +
                         "If the player rolls a 1 at any time, then their turn will forcefully end and all points accumulated this round will be lost.\n"
                         +
-                        "With the explanation done, lets proceed with the game!\n");
+                        "First person to secure a total of " + winCondition() + " points wins!\n");
 
         playerList = initialize(sc);
 
