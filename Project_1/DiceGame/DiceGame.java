@@ -64,8 +64,8 @@ public class DiceGame {
                 break;
             } else {
                 System.err.print("Invalid input, please enter a number between 1 and " + maxNumber + ": ");
-                GlobalMethodLibrary.clearScanner(sc);
             }
+            
         } while (true);
 
         if (userGuess == player.getDieValue()) {
